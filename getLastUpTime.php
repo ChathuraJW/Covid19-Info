@@ -12,6 +12,7 @@ if(mysqli_connect_error($conn)){
     $lastUpdatedDB=$row['date'];
     $newCasesDB=$row['newCases'];
     // echo json_encode($row);
+    $sqlQueryDU="";
     if($_GET['action']=='check'){
         $timeStamp=$_GET['timeStamp'];
         $newCases=$_GET['newCases'];
@@ -19,17 +20,15 @@ if(mysqli_connect_error($conn)){
             if($newCasesDB==$newCases){
                 echo("Matched.No action needed.");
             }else{
-                // echo("Today, data set should update.");
-                $sqlQuery="UPDATE `dailyupdate` SET `newCases`=$newCases WHERE `date`='$timeStamp';";
-                echo($sqlQuery);
+                echo("Today, data set should update.");
+                $sqlQueryDU="UPDATE `dailyupdate` SET `newCases`=$newCases WHERE `date`='$lastUpdatedDB';";
             }
         }else{
             echo("Need to create a new entry.");
-            $sqlQuery="INSERT INTO `dailyupdate`(`newCases`, `totalInHospital`, `date`) VALUES ($newCases,0,'$timeStamp');";   
+            $sqlQueryDU="INSERT INTO `dailyupdate`(`newCases`, `totalInHospital`, `date`) VALUES ($newCases,0,'$timeStamp');";   
         }
-
-
-        //queary for add new entry
+        echo($sqlQueryDU);
+        
     }
 
     mysqli_close($conn);
