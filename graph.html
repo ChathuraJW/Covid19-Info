@@ -13,8 +13,8 @@
             height: auto;
         }
     </style>
-    <script src="assets/js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="assets/js/Chart.min.js"></script>
+    <script type="text/javascript" src="assets/js/jquery-3.2.1.min.js"></script>
 
 </head>
 
@@ -37,7 +37,7 @@
                         var i = 0;
                         var dataVari = JSON.parse(data);
                         for (var i in dataVari) {
-                            date.push(dataVari[i].date);
+                            date.push(dataVari[i].date.split(" ")[0]);
                             cases.push(dataVari[i].newCases);
                         }
 
