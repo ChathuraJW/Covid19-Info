@@ -486,7 +486,7 @@
             document.getElementById("totalRecoverLK").innerHTML =(data.data.local_recovered)
         });;
         $.getJSON('https://www.hpb.health.gov.lk/api/get-current-statistical', function(data) {
-            document.getElementById("currentInHospital").innerHTML =(data.data.local_total_cases)-(data.data.local_recovered)
+            document.getElementById("currentInHospital").innerHTML =(data.data.local_total_cases)-(data.data.local_recovered)-(data.data.local_deaths)
         });;
         $.getJSON('https://www.hpb.health.gov.lk/api/get-current-statistical', function(data) {
             document.getElementById("localNewCases").innerHTML =(data.data.local_new_cases)
