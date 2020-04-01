@@ -19,10 +19,13 @@ if(mysqli_connect_error($conn)){
             if($newCasesDB==$newCases){
                 echo("Matched.No action needed.");
             }else{
-                echo("Today, data set should update.");
+                // echo("Today, data set should update.");
+                $sqlQuery="UPDATE `dailyupdate` SET `newCases`=$newCases WHERE `date`='$timeStamp';";
+                echo($sqlQuery);
             }
         }else{
             echo("Need to create a new entry.");
+            $sqlQuery="INSERT INTO `dailyupdate`(`newCases`, `totalInHospital`, `date`) VALUES ($newCases,0,'$timeStamp');";   
         }
 
 

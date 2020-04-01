@@ -15,10 +15,10 @@
     $.getJSON('https://www.hpb.health.gov.lk/api/get-current-statistical', function(dataFromWeb) {
          lastUpdatedWeb =(dataFromWeb.data.update_date_time);
          newCasesWeb =(dataFromWeb.data.local_new_cases);
-         var url='http://localhost/graph/getLastUpTime.php?action=check&timeStamp='+lastUpdatedWeb+'&newCases='+newCasesWeb;
+         var url='http://localhost/covid19-info/getLastUpTime.php?action=check&timeStamp='+lastUpdatedWeb+'&newCases='+newCasesWeb;
          console.log((url));
     });;
-    $.getJSON('http://localhost/graph/getLastUpTime.php?action=check', function(dataFormDB) {
+    $.getJSON('http://localhost/covid19-info/getLastUpTime.php?action=check', function(dataFormDB) {
          lastUpdatedDB =(dataFormDB.date);
          newCasesDB =(dataFormDB.newCases);
     });;
