@@ -18,19 +18,25 @@ if(mysqli_connect_error($conn)){
         $newCases=$_GET['newCases'];
         if((explode(" ",$timeStamp)[0])==(explode(" ",$lastUpdatedDB)[0])){
             if($newCasesDB==$newCases){
-                echo("Matched.No action needed.");
+                //Matched.No action needed.
             }else{
-                echo("Today, data set should update.");
+                //Today, data set should update.
                 $sqlQueryDU="UPDATE `dailyupdate` SET `newCases`=$newCases WHERE `date`='$lastUpdatedDB';";
             }
         }else{
-            echo("Need to create a new entry.");
+            //Need to create a new entry
             $sqlQueryDU="INSERT INTO `dailyupdate`(`newCases`, `totalInHospital`, `date`) VALUES ($newCases,0,'$timeStamp');";   
         }
-        echo($sqlQueryDU);
-        
+        if($sqlQueryDU!=""){
+            $result=mysqli_query($conn,$sqlQueryDU);
+            if($result){
+                $retData = array('queryState' => 'Sucess', );
+            }
+        }else{
+            $retData = array('queryState' => 'Fail', );
+        }
+        echo(json_encode($retData));
     }
-
     mysqli_close($conn);
 }
 ?>
