@@ -144,7 +144,7 @@
             </div>
             <br/><br/>
             <div class="row justify-content-center">
-                <div class="col-lg-6 col-md-10">
+                <div class="col-lg-6 col-md-8 col-sm-10">
                     <div class="section-title text-center pb-10">
                         <h2 class="">ශ්‍රී ලංකාව තුල නව COVID-19 රෝගීන් වාර්තාවීම</h2><br/>
                         <div id="chart-container">
@@ -153,7 +153,17 @@
                     </div>
                     <!-- row -->
                 </div>
+                <div class="col-lg-6 col-md-8 col-sm-10">
+                    <div class="section-title text-center pb-10">
+                        <h2 class="">ශ්‍රී ලංකාවේ මේ වනවිට වාර්තාවූ සියලු COVID-19 රෝගීන්ගේ ව්‍යාප්තිය</h2><br/>
+                        <div id="chart-container">
+                            <canvas id="graphCanvasAll" style="width: 150%;"></canvas>
+                        </div>
+                    </div>
+                    <!-- row -->
+                </div>
             </div>
+
             <hr style="position:relative;top:20px;border:none;height:12px;background:gray;margin-bottom:50px;"><br/>
             <div class="row justify-content-center">
                 <div class="col-lg-6 col-md-10">
@@ -481,6 +491,7 @@
     <script>
         $(document).ready(function() {
             showGraph();
+            showGraphAll();
         });
         setInterval(function() {
             var lastUpdatedWeb;
