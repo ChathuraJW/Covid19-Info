@@ -16,16 +16,17 @@ if(mysqli_connect_error($conn)){
     if($_GET['action']=='check'){
         $timeStamp=$_GET['timeStamp'];
         $newCases=$_GET['newCases'];
-        if((explode(" ",$timeStamp)[0])==(explode(" ",$lastUpdatedDB)[0])){
+        $totleCases=$_GET['totleCases'];
+        if((explode(" ",$timeStamp)[0])==$lastUpdatedDB){
             if($newCasesDB==$newCases){
                 //Matched.No action needed.
             }else{
                 //Today, data set should update.
-                $sqlQueryDU="UPDATE `dailyupdate` SET `newCases`=$newCases WHERE `date`='$lastUpdatedDB';";
+                $sqlQueryDU="UPDATE `dailyupdate` SET `newCases`=$newCases,`totalCases`=$totleCases WHERE `date`='$timeStamp';";
             }
         }else{
             //Need to create a new entry
-            $sqlQueryDU="INSERT INTO `dailyupdate`(`newCases`, `totalInHospital`, `date`) VALUES ($newCases,0,'$timeStamp');";   
+            $sqlQueryDU="INSERT INTO `dailyupdate`(`newCases`, `date`,`totalCases`) VALUES ($newCases,'$timeStamp',$totleCases);";   
         }
         if($sqlQueryDU!=""){
             $result=mysqli_query($conn,$sqlQueryDU);
