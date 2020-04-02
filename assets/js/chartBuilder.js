@@ -1,6 +1,6 @@
 function showGraph() {
     {
-        $.post("data.php ",
+        $.post("assets/php/data.php",
             function(data) {
                 var date = [];
                 var cases = [];
@@ -25,7 +25,7 @@ function showGraph() {
                     }]
                 };
 
-                var graphTarget = $("#graphCanvas ");
+                var graphTarget = $("#graphCanvas");
 
                 var barGraph = new Chart(graphTarget, {
                     type: 'line',
