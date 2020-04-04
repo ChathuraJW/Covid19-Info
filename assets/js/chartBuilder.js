@@ -15,8 +15,8 @@ function showGraph() {
                     labels: date,
                     datasets: [{
                         label: 'New Cases',
-                        backgroundColor: 'red',
-                        borderColor: 'red',
+                        backgroundColor: 'green',
+                        borderColor: 'green',
                         hoverBackgroundColor: '#CCCCCC',
                         hoverBorderColor: '#666666',
                         fill: false,
@@ -41,11 +41,13 @@ function showGraphAll() {
             function(data) {
                 var date = [];
                 var cases = [];
+                var currentCases=[];
                 var i = 0;
                 var dataVari = JSON.parse(data);
                 for (var i in dataVari) {
                     date.push(dataVari[i].date);
                     cases.push(dataVari[i].totalCases);
+                    currentCases.push(dataVari[i].currentActiveCases);
                 }
 
                 var chartdata = {
@@ -59,6 +61,15 @@ function showGraphAll() {
                         fill: false,
                         steppedLine: false,
                         data: cases
+                    },{
+                        label: 'Active Cases',
+                        backgroundColor: 'red',
+                        borderColor: 'red',
+                        hoverBackgroundColor: '#CCCCCC',
+                        hoverBorderColor: '#666666',
+                        fill: false,
+                        steppedLine: false,
+                        data: currentCases
                     }]
                 };
 
