@@ -11,8 +11,8 @@ function showGraph() {
                 for (var i in dataVari) {
                     date.push(dataVari[i].date);
                     newCases.push(dataVari[i].newCases);
-                    recovered.push(dataVari[i].totalRecovered);
-                    death.push(dataVari[i].totalDeath);
+                    recovered.push(dataVari[i].dailyRecovered);
+                    death.push(dataVari[i].dailyDeath);
                 }
 
                 var chartdata = {
@@ -62,13 +62,13 @@ function showGraphAll() {
         $.post("assets/php/data.php",
             function(data) {
                 var date = [];
-                var cases = [];
+                var Totalcases = [];
                 var currentCases=[];
                 var i = 0;
                 var dataVari = JSON.parse(data);
                 for (var i in dataVari) {
                     date.push(dataVari[i].date);
-                    cases.push(dataVari[i].totalCases);
+                    Totalcases.push(dataVari[i].totalCases);
                     currentCases.push(dataVari[i].currentActiveCases);
                 }
 
@@ -82,7 +82,7 @@ function showGraphAll() {
                         hoverBorderColor: '#666666',
                         fill: false,
                         steppedLine: false,
-                        data: cases
+                        data: Totalcases
                     },{
                         label: 'Active Cases',
                         backgroundColor: 'violet',

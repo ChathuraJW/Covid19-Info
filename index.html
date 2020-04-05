@@ -495,9 +495,9 @@
                 newCasesWeb = (dataFromWeb.data.local_new_cases);
                 totleCasesWeb=(dataFromWeb.data.local_total_cases);
                 activeCasesWeb=(dataFromWeb.data.local_total_cases) - (dataFromWeb.data.local_recovered) - (dataFromWeb.data.local_deaths);
-                totalRecoverd=(dataFromWeb.data.local_recovered);
-                totalDeath=(dataFromWeb.data.local_deaths);
-                var url = 'assets/php/databaseUpdaterEngine.php?action=check&timeStamp=' + lastUpdatedWeb + '&newCases=' + newCasesWeb+'&totleCases='+totleCasesWeb+'&activeCases='+activeCasesWeb+'&totalRecovered='+totalRecoverd+'&totalDeath='+totalDeath;
+                totalRecoverdWeb=(dataFromWeb.data.local_recovered);
+                totalDeathWeb=(dataFromWeb.data.local_deaths);
+                var url = 'assets/php/databaseUpdaterEngine.php?action=check&timeStamp=' + lastUpdatedWeb + '&newCases=' + newCasesWeb+'&totleCases='+totleCasesWeb+'&activeCases='+activeCasesWeb+'&totalRecovered='+totalRecoverdWeb+'&totalDeath='+totalDeathWeb;
                 $.getJSON(url, function(dataFormDBUpQ) {
                     lastUpdatedDB = (dataFormDBUpQ.queryState);
                     console.log((lastUpdatedDB));
