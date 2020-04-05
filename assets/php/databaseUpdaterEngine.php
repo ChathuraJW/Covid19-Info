@@ -29,7 +29,6 @@ if(mysqli_connect_error($conn)){
         // echo ($lastUpdatedDB);
         $difRec=$totalRecovered-$totalRecoveredDB;
         $difDeath=$totalDeath-$totalDeathDB;
-        echo($difRec);
         if($timeStamp==$lastUpdatedDB){
             if($newCasesDB!=$newCases){
                 $sqlQueryDU="UPDATE `dailyupdate` SET `newCases`=$newCases WHERE `date`='$timeStamp';";
