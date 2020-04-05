@@ -19,8 +19,8 @@ function showGraph() {
                     labels: date,
                     datasets: [{
                         label: 'New Cases',
-                        backgroundColor: 'blue',
-                        borderColor: 'blue',
+                        backgroundColor: 'black',
+                        borderColor: 'black',
                         hoverBackgroundColor: '#CCCCCC',
                         hoverBorderColor: '#666666',
                         fill: false,
@@ -76,8 +76,8 @@ function showGraphAll() {
                     labels: date,
                     datasets: [{
                         label: 'Total Cases',
-                        backgroundColor: 'blue',
-                        borderColor: 'blue',
+                        backgroundColor: 'orange',
+                        borderColor: 'orange',
                         hoverBackgroundColor: '#CCCCCC',
                         hoverBorderColor: '#666666',
                         fill: false,
@@ -85,8 +85,8 @@ function showGraphAll() {
                         data: cases
                     },{
                         label: 'Active Cases',
-                        backgroundColor: 'red',
-                        borderColor: 'red',
+                        backgroundColor: 'violet',
+                        borderColor: 'violet',
                         hoverBackgroundColor: '#CCCCCC',
                         hoverBorderColor: '#666666',
                         fill: false,
