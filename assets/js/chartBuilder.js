@@ -3,25 +3,47 @@ function showGraph() {
         $.post("assets/php/data.php",
             function(data) {
                 var date = [];
-                var cases = [];
+                var newCases = [];
+                var recovered=[];
+                var death =[];
                 var i = 0;
                 var dataVari = JSON.parse(data);
                 for (var i in dataVari) {
                     date.push(dataVari[i].date);
-                    cases.push(dataVari[i].newCases);
+                    newCases.push(dataVari[i].newCases);
+                    recovered.push(dataVari[i].totalRecovered);
+                    death.push(dataVari[i].totalDeath);
                 }
 
                 var chartdata = {
                     labels: date,
                     datasets: [{
                         label: 'New Cases',
+                        backgroundColor: 'blue',
+                        borderColor: 'blue',
+                        hoverBackgroundColor: '#CCCCCC',
+                        hoverBorderColor: '#666666',
+                        fill: false,
+                        steppedLine: false,
+                        data: newCases
+                    },{
+                        label: 'New Recovered',
                         backgroundColor: 'green',
                         borderColor: 'green',
                         hoverBackgroundColor: '#CCCCCC',
                         hoverBorderColor: '#666666',
                         fill: false,
                         steppedLine: false,
-                        data: cases
+                        data: recovered
+                    },{
+                        label: 'New Death',
+                        backgroundColor: 'red',
+                        borderColor: 'red',
+                        hoverBackgroundColor: '#CCCCCC',
+                        hoverBorderColor: '#666666',
+                        fill: false,
+                        steppedLine: false,
+                        data: death
                     }]
                 };
 

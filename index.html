@@ -231,7 +231,7 @@
     <section id="pricing" class="pricing-area " style="background-color:rgb(59, 90, 64)">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-lg-6 col-md-10">
+                <div class="col-lg-6 col-md-12 col-sm-12">
                     <div class="section-title text-center pb-25">
                         <h3 class="title" style="color:white;">COVID-19 රෝග ලක්ෂණ</h3>
                         <p class="text" style="color:white;">මෙහි දැක්වෙන තොරතුරු අන්තර්ජාල ඇසුරෙන් ලබාගත තොරතුරු වේ.</p>
@@ -353,12 +353,6 @@
                     <div class="testimonial-left-content mt-45">
                         <h4 class="sub-title" style="font-size:30px;">ශ්‍රී ලංකාවේ<br/> වසංගත රෝග විද්‍යා අංශයෙන්</h4>
                         <h1 class="title" style="font-size:60px;">පණිවිඩයක්</h1>
-                        <ul class="testimonial-line">
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                        </ul>
                         <p class="text">
                             <b>COVID19 හෙවත් නව කොරෝනා වෛරසය</b><br/><br/>
                             <ol>
@@ -501,10 +495,18 @@
                 newCasesWeb = (dataFromWeb.data.local_new_cases);
                 totleCasesWeb=(dataFromWeb.data.local_total_cases);
                 activeCasesWeb=(dataFromWeb.data.local_total_cases) - (dataFromWeb.data.local_recovered) - (dataFromWeb.data.local_deaths);
-                var url = 'assets/php/databaseUpdaterEngine.php?action=check&timeStamp=' + lastUpdatedWeb + '&newCases=' + newCasesWeb+'&totleCases='+totleCasesWeb+'&activeCases='+activeCasesWeb;
+                totalRecoverd=(dataFromWeb.data.local_recovered);
+                totalDeath=(dataFromWeb.data.local_deaths);
+                var url = 'assets/php/databaseUpdaterEngine.php?action=check&timeStamp=' + lastUpdatedWeb + '&newCases=' + newCasesWeb+'&totleCases='+totleCasesWeb+'&activeCases='+activeCasesWeb+'&totalRecovered='+totalRecoverd+'&totalDeath='+totalDeath;
                 $.getJSON(url, function(dataFormDBUpQ) {
                     lastUpdatedDB = (dataFormDBUpQ.queryState);
                     console.log((lastUpdatedDB));
+                    if(lastUpdatedDB=='Sucess'){
+                        $(document).ready(function() {
+                            showGraph();
+                            showGraphAll();
+                        });
+                    }
                 });;
             });;
         }, 60000);

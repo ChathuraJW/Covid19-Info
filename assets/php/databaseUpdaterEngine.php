@@ -13,6 +13,8 @@ if(mysqli_connect_error($conn)){
     $newCasesDB=$row['newCases'];
     $activeCasesDB=$row['currentActiveCases'];
     $totleCasesDB=$row['totalCases'];
+    $totalRecoveredDB=mysqli_fetch_assoc(mysqli_query($conn,"SELECT SUM(`totalRecovered`) FROM `dailyupdate`;"))["SUM(`totalRecovered`)"];
+    $totalDeathDB=mysqli_fetch_assoc(mysqli_query($conn,"SELECT SUM(`totalDeath`) FROM `dailyupdate`;"))["SUM(`totalDeath`)"];
     // echo json_encode($row);
     $sqlQueryDU="";
     $key=0;
@@ -21,8 +23,13 @@ if(mysqli_connect_error($conn)){
         $newCases=$_GET['newCases'];
         $totleCases=$_GET['totleCases'];
         $activeCases=$_GET['activeCases'];
+        $totalRecovered=$_GET['totalRecovered'];
+        $totalDeath=$_GET['totalDeath'];
         // echo ($timeStamp);
         // echo ($lastUpdatedDB);
+        $difRec=$totalRecovered-$totalRecoveredDB;
+        $difDeath=$totalDeath-$totalDeathDB;
+        echo($difRec);
         if($timeStamp==$lastUpdatedDB){
             if($newCasesDB!=$newCases){
                 $sqlQueryDU="UPDATE `dailyupdate` SET `newCases`=$newCases WHERE `date`='$timeStamp';";
@@ -50,8 +57,24 @@ if(mysqli_connect_error($conn)){
                 }
             }
             // echo($sqlQueryDU);
+            
+            if($difRec!=0){
+                $sqlQueryDU="UPDATE `dailyupdate` SET `totalRecovered`=$difRec WHERE `date`='$timeStamp';";
+                $result=mysqli_query($conn,$sqlQueryDU);
+                if($result){
+                    $key=$key+1;
+                }
+            }
+
+            if($difDeath!=0){
+                $sqlQueryDU="UPDATE `dailyupdate` SET `totalDeath`=$difDeath WHERE `date`='$timeStamp';";
+                $result=mysqli_query($conn,$sqlQueryDU);
+                if($result){
+                    $key=$key+1;
+                }
+            }
         }else{
-            $sqlQueryDU="INSERT INTO `dailyupdate`(`newCases`, `date`,`totalCases`,`currentActiveCases`) VALUES ($newCases,'$timeStamp',$totleCases,$activeCases);";   
+            $sqlQueryDU="INSERT INTO `dailyupdate`(`newCases`, `date`,`totalCases`,`currentActiveCases`,`totalRecovered`,`totalDeath`) VALUES ($newCases,'$timeStamp',$totleCases,$activeCases,$difRec,$difDeath);";   
             $result=mysqli_query($conn,$sqlQueryDU);
                 if($result){
                     $key=$key+1;
