@@ -492,15 +492,16 @@
         $(document).ready(function() {
             showGraph();
             showGraphAll();
-        });
+            });
         setInterval(function() {
             var lastUpdatedWeb;
             var newCasesWeb;
             $.getJSON('https://www.hpb.health.gov.lk/api/get-current-statistical', function(dataFromWeb) {
                 lastUpdatedWeb = (dataFromWeb.data.update_date_time).split(" ")[0];
                 newCasesWeb = (dataFromWeb.data.local_new_cases);
-                totleCasesWeb=(dataFromWeb.data.local_total_cases)
-                var url = 'assets/php/databaseUpdaterEngine.php?action=check&timeStamp=' + lastUpdatedWeb + '&newCases=' + newCasesWeb+'&totleCases='+totleCasesWeb;
+                totleCasesWeb=(dataFromWeb.data.local_total_cases);
+                activeCasesWeb=(dataFromWeb.data.local_total_cases) - (dataFromWeb.data.local_recovered) - (dataFromWeb.data.local_deaths);
+                var url = 'assets/php/databaseUpdaterEngine.php?action=check&timeStamp=' + lastUpdatedWeb + '&newCases=' + newCasesWeb+'&totleCases='+totleCasesWeb+'&activeCases='+activeCasesWeb;
                 $.getJSON(url, function(dataFormDBUpQ) {
                     lastUpdatedDB = (dataFormDBUpQ.queryState);
                     console.log((lastUpdatedDB));
