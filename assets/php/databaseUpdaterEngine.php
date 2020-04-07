@@ -18,6 +18,9 @@ if(mysqli_connect_error($conn)){
     // echo json_encode($row);
     $sqlQueryDU="";
     $key=0;
+    //create log file access
+    $myfile = fopen("../log.txt", "a");
+
     if($_GET['action']=='check'){
         $timeStamp=$_GET['timeStamp'];
         $newCases=$_GET['newCases'];
@@ -34,6 +37,7 @@ if(mysqli_connect_error($conn)){
                 $sqlQueryDU="UPDATE `dailyupdate` SET `newCases`=$newCases WHERE `date`='$timeStamp';";
                 $result=mysqli_query($conn,$sqlQueryDU);
                 if($result){
+                    fwrite($myfile, $sqlQueryDU."\n");
                     $key=$key+1;
                 }
             }
@@ -42,6 +46,7 @@ if(mysqli_connect_error($conn)){
                 $sqlQueryDU="UPDATE `dailyupdate` SET `currentActiveCases`=$activeCases WHERE `date`='$timeStamp';";
                 $result=mysqli_query($conn,$sqlQueryDU);
                 if($result){
+                    fwrite($myfile, $sqlQueryDU."\n");
                     $key=$key+1;
                 }
             }
@@ -52,6 +57,7 @@ if(mysqli_connect_error($conn)){
                 $sqlQueryDU="UPDATE `dailyupdate` SET `totalCases`=$totleCases WHERE `date`='$timeStamp';";
                 $result=mysqli_query($conn,$sqlQueryDU);
                 if($result){
+                    fwrite($myfile, $sqlQueryDU."\n");
                     $key=$key+1;
                 }
             }
@@ -61,6 +67,7 @@ if(mysqli_connect_error($conn)){
                 $sqlQueryDU="UPDATE `dailyupdate` SET `dailyRecovered`=$difRec WHERE `date`='$timeStamp';";
                 $result=mysqli_query($conn,$sqlQueryDU);
                 if($result){
+                    fwrite($myfile, $sqlQueryDU."\n");
                     $key=$key+1;
                 }
             }
@@ -69,6 +76,7 @@ if(mysqli_connect_error($conn)){
                 $sqlQueryDU="UPDATE `dailyupdate` SET `dailyDeath`=$difDeath WHERE `date`='$timeStamp';";
                 $result=mysqli_query($conn,$sqlQueryDU);
                 if($result){
+                    fwrite($myfile, $sqlQueryDU."\n");
                     $key=$key+1;
                 }
             }
@@ -76,17 +84,22 @@ if(mysqli_connect_error($conn)){
             $sqlQueryDU="INSERT INTO `dailyupdate`(`newCases`, `date`,`totalCases`,`currentActiveCases`,`dailyRecovered`,`dailyDeath`) VALUES ($newCases,'$timeStamp',$totleCases,$activeCases,$difRec,$difDeath);";   
             $result=mysqli_query($conn,$sqlQueryDU);
                 if($result){
+                    fwrite($myfile, $sqlQueryDU."\n");
                     $key=$key+1;
                 }
                 // echo($sqlQueryDU);
         }
         if($key>0){
+            //time stamp
+            $txt = date('Y-m-d H:i:s');
+            fwrite($myfile, $txt."\n\n");
             $retData = array('queryState' => 'Sucess', );
         }else{
             $retData = array('queryState' => 'Fail', );
         }
         echo(json_encode($retData));
     }
+    fclose($myfile);
     mysqli_close($conn);
 }
 ?>
