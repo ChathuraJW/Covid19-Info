@@ -91,6 +91,7 @@ if(mysqli_connect_error($conn)){
         }
         if($key>0){
             //time stamp
+            date_default_timezone_set('Asia/Colombo');
             $txt = date('Y-m-d H:i:s');
             fwrite($myfile, $txt."\n\n");
             $retData = array('queryState' => 'Sucess', );
